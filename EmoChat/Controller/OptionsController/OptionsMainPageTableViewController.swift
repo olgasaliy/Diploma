@@ -39,7 +39,9 @@ class OptionsMainPageTableViewController:  UITableViewController {
         phoneNumberLabel.text = currentUser.phoneNumber
         usernameLabel.text = currentUser.username
         emailLabel.text = currentUser.email
-        userImageView.image = currentUser.photo
+        if let userPhoto = currentUser.photo {
+            userImageView.image = userPhoto
+        }
     }
     
     // MARK: - Navigation

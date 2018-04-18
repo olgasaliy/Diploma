@@ -38,7 +38,9 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         userPhotoView.contentMode = .scaleAspectFill
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
-        userPhotoView.image = currentUser.photo
+        if let userPhoto = currentUser.photo {
+            userPhotoView.image = userPhoto
+        }
     }
 
     //MARK: - Save information method after tap on "save" button

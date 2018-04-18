@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>44336186246-0pi90g156j33f2iaqlb82dpas37k0hns.apps.googleusercontent.com</string>
+	<string>924514126757-gr531rplgkrcsco0kn999lktb0k502v3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.44336186246-0pi90g156j33f2iaqlb82dpas37k0hns</string>
+	<string>com.googleusercontent.apps.924514126757-gr531rplgkrcsco0kn999lktb0k502v3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAdMhwOpB5LhD1jzvuDJ_rLpKecqfvdoXk</string>
+	<string>AIzaSyAZs4IqL2R9t9_3QULwq4cGV2JMloR06dQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>44336186246</string>
+	<string>924514126757</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.softserve.EmoChat</string>
+	<string>com.diploma.Emochat</string>
 	<key>PROJECT_ID</key>
-	<string>emochat-e3d68</string>
+	<string>emochat-os</string>
 	<key>STORAGE_BUCKET</key>
-	<string>emochat-e3d68.appspot.com</string>
+	<string>emochat-os.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:44336186246:ios:6c63c7ae057b4fe2</string>
+	<string>1:924514126757:ios:d504b8fa3e5a0d9f</string>
 	<key>DATABASE_URL</key>
-	<string>https://emochat-e3d68.firebaseio.com</string>
+	<string>https://emochat-os.firebaseio.com</string>
 </dict>
 </plist>
