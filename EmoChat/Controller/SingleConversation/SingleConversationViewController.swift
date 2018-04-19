@@ -158,7 +158,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.isEmpty {
                 self.updateUI()
             }
-            if self.currentConversation.usersInConversation.count > 2 {
+            if self.currentConversation.type == .multipleChat {
                 self.multipleChat = true
             }
         })
@@ -454,7 +454,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 })
             }
             else {
-                self.photosArray.updateValue(UIImage(named: "question_mark")!, forKey: member.uid)
+                self.photosArray.updateValue(UIImage(named: "male")!, forKey: member.uid)
                 self.group.leave()
             }
         }

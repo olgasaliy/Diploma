@@ -22,7 +22,7 @@
                         <sections>
                             <tableViewSection id="Yoh-vD-Uwt">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="118" id="zm6-pV-ObS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="118" id="zm6-pV-ObS">
                                         <rect key="frame" x="0.0" y="35" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zm6-pV-ObS" id="6EG-3w-3Bh">

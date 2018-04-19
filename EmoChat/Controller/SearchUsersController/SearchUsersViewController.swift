@@ -282,7 +282,7 @@ class SearchUsersViewController: UITableViewController {
                        userInfoVC.selectedUserPhoto = image
                     }
                 } else {
-                   userInfoVC.selectedUserPhoto = #imageLiteral(resourceName: "question_mark")
+                   userInfoVC.selectedUserPhoto = #imageLiteral(resourceName: "new_question_mark")
                 }
    
             }

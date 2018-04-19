@@ -8,16 +8,33 @@
 
 import Foundation
 
+enum ConversationType
+{
+    case unknownType
+    case dialog
+    case multipleChat
+}
+
 class Conversation {
 
-    //название
     var name: String?
     var uuid: String
     var usersInConversation: [User] = []
     var messagesInConversation: [Message]? = []
     var lastMessage: Message?
     var lastMessageTimeStamp: Date?
-    
+    var type: ConversationType {
+        get {
+            switch usersInConversation.count {
+            case 2:
+                return .dialog
+            case 3..<100:
+                return .multipleChat
+            default:
+                return .unknownType
+            }
+        }
+    }
     
     init(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
         self.lastMessage = lastMessage

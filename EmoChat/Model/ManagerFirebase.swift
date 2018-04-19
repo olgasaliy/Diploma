@@ -319,7 +319,11 @@ class ManagerFirebase {
             }
             
             //create reference
-            let imagePath = "userPics/\(uid)/\(Double(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            var date = String(Date.timeIntervalSinceReferenceDate * 1000)
+            if let i = date.index(of: ".") {
+                date.remove(at: i)
+            }
+            let imagePath = "userPics/\(uid)/\(date).jpeg"
             
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpeg"
@@ -353,7 +357,7 @@ class ManagerFirebase {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        photoRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
             if let error = error {
                 result(.failure(error.localizedDescription))
                 // Uh-oh, an error occurred!
@@ -560,7 +564,7 @@ class ManagerFirebase {
     func getContacts(from conversations: [Conversation]) -> [User] {
         var result: [User] = []
         for eachConv in conversations {
-            if eachConv.usersInConversation.count == 2 {
+            if eachConv.type == .dialog {
                 if let companion = eachConv.usersInConversation.filter({$0.email != Auth.auth().currentUser?.email}).first {
                     result.append(companion)
                 }
@@ -609,10 +613,9 @@ class ManagerFirebase {
                 ref?.child("users/\(user.uid ?? "")/contacts/\(Auth.auth().currentUser?.uid ?? "")").setValue(true)
                 ref?.child("users/\(Auth.auth().currentUser?.uid ?? "")/contacts/\(user.uid ?? "")").setValue(true)
                 
+                
+                conversation.name = user.getNameOrUsername()
             }
-            
-            
-
             
             completion(.successSingleConversation(conversation))
         } else {
@@ -928,7 +931,7 @@ class ManagerFirebase {
         
         //define the name of conversation
         var conversationName = ""
-        if let name = conversationDict["name"] as? String {
+        if let name = conversationDict["name"] as? String, !name.isEmpty {
             conversationName = name
         } else {
             let contactsIDs = conversationDict["usersInConversation"] as? [String : AnyObject] ?? [:]

@@ -35,6 +35,8 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
 		userPhotoView.layer.cornerRadius = 7
 		userPhotoView.layer.borderWidth = 1
 		userPhotoView.layer.borderColor = UIColor.black.cgColor
+        userPhotoView.layer.cornerRadius = userPhotoView.frame.size.width / 2
+        userPhotoView.layer.masksToBounds = true
         activityIndicator.isHidden = true
         if let picture = image {
             userImage = picture
