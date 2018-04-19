@@ -14,6 +14,8 @@ class CurrentUser {
     static let shared = CurrentUser()
     var manager: ManagerFirebase!
     
+    var isLoaded: Bool
+    
     var uid: String!
     
     var firstName: String? {
@@ -57,23 +59,8 @@ class CurrentUser {
     
     var updateInfoOnView: (() -> Void)?
    
-    private init() {}
-    
-    // MARK: -  Login
-    func logIn() {
-        manager = ManagerFirebase.shared
-        manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
-            result in
-            switch result {
-            case .success:
-                print("success login")
-                break
-            case .failure(let error):
-                print("error login \(error)")
-            default:
-                break
-            }
-        }
+    private init() {
+        isLoaded = false
     }
     
     // MARK: -  Get user
@@ -97,7 +84,7 @@ class CurrentUser {
                 if let optPhotoURL = user.photoURL {
                     self.getUserPicFullResolution(photoURL: optPhotoURL)
                 }
-                
+                self.isLoaded = true
             case .failure(let error):
                 print("\(error) fail with getUser")
             default:

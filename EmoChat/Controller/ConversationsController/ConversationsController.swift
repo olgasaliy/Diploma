@@ -31,6 +31,8 @@ class ConversationsController: UITableViewController {
             self.tableView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false	
         }
+        
+        CurrentUser.shared.getCurrentUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {

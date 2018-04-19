@@ -59,6 +59,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="J0i-BC-n9p">
+                                                    <rect key="frame" x="45" y="49" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="m4L-az-jUJ" secondAttribute="trailing" id="3mx-zT-F82"/>
@@ -266,6 +270,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="activityIndicator" destination="J0i-BC-n9p" id="nqU-J0-hHp"/>
                         <outlet property="emailLabel" destination="eDC-oi-k7P" id="lZo-3O-HnQ"/>
                         <outlet property="nameAndLastNameLabel" destination="tdm-tr-667" id="Kmz-Hq-1Tx"/>
                         <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="qm2-Uq-slb"/>

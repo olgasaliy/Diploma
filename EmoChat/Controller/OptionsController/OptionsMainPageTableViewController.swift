@@ -16,6 +16,7 @@ class OptionsMainPageTableViewController:  UITableViewController {
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var manager: ManagerFirebase!
     var currentUser: CurrentUser!
@@ -23,18 +24,26 @@ class OptionsMainPageTableViewController:  UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Singleton
         currentUser = CurrentUser.shared
         manager = ManagerFirebase.shared
 
         currentUser.updateInfoOnView = updateInfoOnView
         updateInfoOnView()
-        
-        currentUser.getCurrentUser()
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if !currentUser.isLoaded {
+            activityIndicator.startAnimating()
+            activityIndicator.isHidden = false
+            userImageView.isHidden = true
+        }
     }
     
     func updateInfoOnView() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        userImageView.isHidden = false
+
         nameAndLastNameLabel.text = "\(currentUser.firstName ?? "Name") \(currentUser.secondName ?? "Lastname")"
         phoneNumberLabel.text = currentUser.phoneNumber
         usernameLabel.text = currentUser.username
