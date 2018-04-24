@@ -14,6 +14,7 @@ class MessageConversationCell: UITableViewCell {
     @IBOutlet weak var conversationNameLabel: UILabel!
     @IBOutlet weak var conversationTimeLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

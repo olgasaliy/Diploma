@@ -884,7 +884,7 @@ class ManagerFirebase {
         return result
     }
     
-    //MARK: - tuple array
+    //MARK: - Conversations
     
     private func getConversationsIDs(conversatinsIDs: [String : AnyObject],
                                      completionHandler: @escaping ([conversationTuple]) -> Void) {
@@ -956,7 +956,7 @@ class ManagerFirebase {
     }
     
     
-    func getUsersInConversation(conversation: Conversation,completion: @escaping ([User]) -> Void)  {
+    func getUsersIn(conversation: Conversation,completion: @escaping ([User]) -> Void)  {
         
         self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
@@ -965,6 +965,15 @@ class ManagerFirebase {
             completion(users)
             
         })
+        
+    }
+    
+    func getCompanionPhotoURLIn(conversation: Conversation,completion: @escaping (String?) -> Void)  {
+        self.getUsersIn(conversation: conversation) { (users) in
+            if let companion = users.filter({$0.email != Auth.auth().currentUser?.email}).first {
+                completion(companion.photoURL)
+            }
+        }
         
     }
     

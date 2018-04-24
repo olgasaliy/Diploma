@@ -16,7 +16,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     var leaveChatCell = UITableViewCell()
     var userCell = UserTableViewCell()
     
-    var storageRef: StorageReference!
+    let imageStore = ImageStore.shared
     var manager: ManagerFirebase!
     var currentUser: User!
     var conversation: Conversation!
@@ -90,6 +90,11 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             logoCell.conversTitle.text = conversation.name!
             logoCell.conversLogo.clipsToBounds = true
             logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
+            if let imageURL = conversation.imageURL, imageURL != "" {
+                if let image = self.imageStore.image(forKey: imageURL) {
+                    logoCell.conversLogo.image = image
+                }
+            }
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
             logoCell.conversLogo.isUserInteractionEnabled = true

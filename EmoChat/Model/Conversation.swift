@@ -35,6 +35,7 @@ class Conversation {
             }
         }
     }
+    var imageURL: String?
     
     init(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
         self.lastMessage = lastMessage
@@ -52,4 +53,5 @@ class Conversation {
         self.lastMessageTimeStamp = lastMessageTimeStamp
         self.name = name
     }
+    
 }

@@ -20,6 +20,8 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     private var tupleArray: [conversationTuple] = []
     var currentUser: User!
     var managerFirebase: ManagerFirebase!
+    let imageStore = ImageStore.shared
+
     weak var tableView: UITableView!
     
     // MARK: - tupleArray operations
@@ -215,6 +217,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCellIdentifier", for: indexPath) as! MessageConversationCell
+        cell.conversationImageView.image = nil
         
         let conversation = currentUser.userConversations![indexPath.row]
         
@@ -241,6 +244,32 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                 getConversationsFromFirebase()
             }
         }
+        
+        cell.activityIndicator.startAnimating()
+        managerFirebase.getCompanionPhotoURLIn(conversation: conversation) { (url) in
+            if let companionPhotoURL = url, companionPhotoURL != "" {
+                conversation.imageURL = companionPhotoURL
+                if let image = self.imageStore.image(forKey: companionPhotoURL) {
+                    cell.conversationImageView.image = image
+                } else {
+                    cell.activityIndicator.startAnimating()
+                    self.managerFirebase.getUserPicFullResolution(from: companionPhotoURL, result: { [weak self] (result) in
+                        switch result {
+                        case let .successUserPic(userImage):
+                            cell.conversationImageView.image = userImage
+                            cell.activityIndicator.stopAnimating()
+                            self?.imageStore.setImage(userImage, forKey: companionPhotoURL)
+                        default:
+                            return
+                        }
+                    })
+                }
+            } else {
+                cell.activityIndicator.stopAnimating()
+                cell.conversationImageView.image = #imageLiteral(resourceName: "male")
+            }
+        }
+    
 
         return cell
     }
@@ -317,4 +346,5 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
             return date.dayFormatStyle()
         }
     }
+
 }

@@ -135,7 +135,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setObservers()
         
         group.enter()
-        manager?.getUsersInConversation(conversation: self.currentConversation,
+        manager?.getUsersIn(conversation: self.currentConversation,
                                         completion: { (users) in
                                             self.currentConversation.usersInConversation = users
                                             self.downloadPhotos()
