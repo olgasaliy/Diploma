@@ -1,5 +1,5 @@
 //
-//  CustomTableViewCell.swift
+//  SpecialTextView.swift
 //  EmoChat
 //
 //  Created by Olga Saliy on 20.02.

@@ -19,10 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		FirebaseApp.configure()
 
         if Auth.auth().currentUser != nil {
-            if let info = ArchiverManager.shared.loadData()?.getNameOrUsername() {
-                print(info)
-            }
-            
             launchConversationsViewController()
         }
   
