@@ -970,6 +970,7 @@ class ManagerFirebase {
     
     func getCompanionPhotoURLIn(conversation: Conversation,completion: @escaping (String?) -> Void)  {
         self.getUsersIn(conversation: conversation) { (users) in
+            conversation.usersInConversation = users
             if let companion = users.filter({$0.email != Auth.auth().currentUser?.email}).first {
                 completion(companion.photoURL)
             }

@@ -245,14 +245,14 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
             }
         }
         
+        
         cell.activityIndicator.startAnimating()
         managerFirebase.getCompanionPhotoURLIn(conversation: conversation) { (url) in
-            if let companionPhotoURL = url, companionPhotoURL != "" {
+            if let companionPhotoURL = url, companionPhotoURL != "", conversation.type == .dialog {
                 conversation.imageURL = companionPhotoURL
                 if let image = self.imageStore.image(forKey: companionPhotoURL) {
                     cell.conversationImageView.image = image
                 } else {
-                    cell.activityIndicator.startAnimating()
                     self.managerFirebase.getUserPicFullResolution(from: companionPhotoURL, result: { [weak self] (result) in
                         switch result {
                         case let .successUserPic(userImage):

@@ -1020,12 +1020,12 @@ extension SingleConversationViewController: cameraControllerDelegate {
 
         if let textCell = cell as? CustomTableViewCell {
             blurredView.frame = CGRect(x: textCell.message.frame.minX,
-                                       y: textCell.message.frame.minY + 28.0,
+                                       y: textCell.message.frame.minY,
                                        width: textCell.message.frame.width,
-                                       height: textCell.message.frame.height - 28.0)
+                                       height: textCell.message.frame.height)
 
             let label = createLabel(rect: blurredView.bounds)
-            blurredView.addSubview(label)
+            blurredView.contentView.addSubview(label)
             
             blurredView.layer.cornerRadius = cellCornerRadius
             blurredView.layoutIfNeeded()
