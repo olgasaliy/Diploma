@@ -188,6 +188,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             let userInfoVC: UserInfoTableViewController = segue.destination as! UserInfoTableViewController
             userInfoVC.selectedUser = usersInConversation[(indexPath?.row)!]
             userInfoVC.selectedUserPhoto = photosArray[usersInConversation[(indexPath?.row)!].uid]
+            userInfoVC.currentUser = currentUser
             let backItem = UIBarButtonItem()
             backItem.title = NSLocalizedString("Back", comment: "Back button")
             navigationItem.backBarButtonItem = backItem

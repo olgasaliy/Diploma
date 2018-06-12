@@ -777,7 +777,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
         //TODO: remove observers from Firebase
     }
     
@@ -976,7 +975,8 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
         
         if let notNullVideoPath = path {
             currentMessage.setData(content: notNullVideoPath, type: .video)
-            sendMessage(sendMessageButton)
+//            sendMessage(sendMessageButton)
+//            currentMessage.eraseAllData()
         }
     }
 }

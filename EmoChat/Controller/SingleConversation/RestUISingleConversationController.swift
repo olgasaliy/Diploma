@@ -125,70 +125,69 @@ extension CustomTableViewCell {
                 contentViewCell?.spinner.stopAnimating()
             }
         } else {
-
-            let downloadGroup = DispatchGroup()
-            var dicTemData: [String: Any?] = [:]
-
-            for (key, value) in messageURLData {
-
-                dicTemData.updateValue(key, forKey: "url")
-
-                if let valueModel = value as? UrlembedModel {
-
-                    contentViewCell?.dataModel = valueModel
-
-                    let arrayOfURL: [(String,String?)] = [("mainImage", valueModel.url),
-                                                          ("urlImageIco", valueModel.favicon)]
-
-                    let _ = DispatchQueue.global(qos: .userInitiated)
-                    DispatchQueue.concurrentPerform(iterations: arrayOfURL.count) { i in
-                        let index = Int(i)
-                        let (dataField, urlAdress) = arrayOfURL[index]
-
-                        downloadGroup.enter()
-
-                        dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
-                        dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
-
-                        if let notNullUrl = urlAdress,
-                            notNullUrl.characters.count > 0 {
-                            JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
-
-                                var imageForCell = image
-
-                                //resize it
-                                if let notNullImage = imageForCell {
-                                    let rectValue:CGFloat = 50
-                                    if (notNullImage.size.height > rectValue || notNullImage.size.width > rectValue) == true {
-                                        imageForCell = notNullImage.resizeImageWith(newSize:
-                                            CGSize(width: rectValue, height: rectValue))
+            DispatchQueue.global().async {
+                let downloadGroup = DispatchGroup()
+                var dicTemData: [String: Any?] = [:]
+                
+                for (key, value) in messageURLData {
+                    
+                    dicTemData.updateValue(key, forKey: "url")
+                    
+                    if let valueModel = value as? UrlembedModel {
+                        
+                        contentViewCell?.dataModel = valueModel
+                        
+                        let arrayOfURL: [(String,String?)] = [("mainImage", valueModel.url),
+                                                              ("urlImageIco", valueModel.favicon)]
+                        
+                        //let _ = DispatchQueue.global(qos: .userInitiated)
+                        for i in 0..<arrayOfURL.count {
+                            let index = Int(i)
+                            let (dataField, urlAdress) = arrayOfURL[index]
+                            
+                            downloadGroup.enter()
+                            
+                            dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
+                            dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
+                            
+                            if let notNullUrl = urlAdress,
+                                notNullUrl.characters.count > 0 {
+                                JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
+                                    
+                                    var imageForCell = image
+                                    //resize it
+                                    if let notNullImage = imageForCell {
+                                        let rectValue:CGFloat = 50
+                                        if (notNullImage.size.height > rectValue || notNullImage.size.width > rectValue) == true {
+                                            imageForCell = notNullImage.resizeImageWith(newSize:
+                                                CGSize(width: rectValue, height: rectValue))
+                                        }
                                     }
+                                    
+                                    dicTemData.updateValue(imageForCell, forKey: dataField)
+                                    downloadGroup.leave()
                                 }
-
-                                dicTemData.updateValue(imageForCell, forKey: dataField)
+                            } else {
                                 downloadGroup.leave()
                             }
-                        } else {
-                            downloadGroup.leave()
                         }
                     }
+                    
+                    break // only one cycle needed
                 }
-
-                break // only one cycle needed
-            }
-
-            downloadGroup.notify(queue: DispatchQueue.main) { // 2
-                DispatchQueue.main.async  {
-
-                    let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
-                    contentViewCell?.dataForRestUIInfoView = tempParsedData
-                    cMessageModel?.dataForRestUIInfoView = tempParsedData
-
-                    contentViewCell?.spinner.stopAnimating()
-                }
+                
+                downloadGroup.notify(queue: DispatchQueue.main, execute: { // 2
+                    DispatchQueue.main.async  {
+                        
+                        let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
+                        contentViewCell?.dataForRestUIInfoView = tempParsedData
+                        cMessageModel?.dataForRestUIInfoView = tempParsedData
+                        
+                        contentViewCell?.spinner.stopAnimating()
+                    }
+                })
             }
         }
-
     }
 
     //MARK:- UIView creation

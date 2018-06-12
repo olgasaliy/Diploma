@@ -100,7 +100,7 @@ class SearchUsersViewController: UITableViewController {
                 checkmarkedFriends = checkmarkedFriends.filter { $0 !== user }
             } else {
                 tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-                let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
+                let user = (searchController.isActive && !filteredUsers.isEmpty) ? filteredFriends[indexPath.row] : friends[indexPath.row]
                 checkmarkedFriends.append(user)
             }
         case .globalUsers:

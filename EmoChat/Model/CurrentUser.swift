@@ -205,7 +205,7 @@ class CurrentUser {
     
     
     // MARK: - Change username
-    func changeUsername(newUsername: String) {
+    func changeUsername(newUsername: String, completionHandler: @escaping (String) -> ()) {
         manager.changeUsername(newUsername: newUsername) {
             result in
             switch result {
@@ -214,10 +214,10 @@ class CurrentUser {
                 
                 //Save username to singleton current user
                 self.username = newUsername
-                print("success change username to singleton current user")
+                completionHandler("")
                 
             case .failure(let error):
-                print(error)
+                completionHandler(error.description)
             default:
                 break
             }
@@ -225,7 +225,7 @@ class CurrentUser {
     }
     
     //MARK: - Add user photo
-    func addPhoto(chosenImage: UIImage) {
+    func addPhoto(chosenImage: UIImage, completionHandler: @escaping (String) -> ()) {
         manager?.addPhoto(chosenImage, previous: nil) {
             result in
             switch result {
@@ -234,10 +234,10 @@ class CurrentUser {
                 
                 //Save photo to singleton currebt user
                 self.photo = chosenImage
-                print("success saving photo to singleton current user")
+                completionHandler("")
                 
             case .failure(let error):
-                print("\(error) fail saving photo")
+                completionHandler(error.description)
             default:
                 break
             }

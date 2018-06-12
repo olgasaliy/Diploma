@@ -47,11 +47,16 @@ RegexCheckProtocol {
     // MARK: - Save to firebase
     func saveUserName(sender: UIBarButtonItem) {
         if  usernameIsValid(userName: changeUsernameTextField.text){
-            currentUser.changeUsername(newUsername: changeUsernameTextField.text!)
-        }
-        //Back to previous vc
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
+            currentUser.changeUsername(newUsername: changeUsernameTextField.text!) { result in
+                if result.isEmpty {
+                    //Back to previous vc
+                    if let navController = self.navigationController {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
+                    self.infoLabel.printError(errorText: result)
+                }
+            }
         }
     }
 }

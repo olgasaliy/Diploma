@@ -59,14 +59,20 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     //MARK: - Image picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        self.infoLabel.text = "Photo is uploading..."
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         
         //Add image to view
         userPhotoView.image = chosenImage
         
         //Add to firebase and current user
-        currentUser.addPhoto(chosenImage: chosenImage)
+        currentUser.addPhoto(chosenImage: chosenImage) { (result) in
+            if !result.isEmpty {
+                self.infoLabel.printError(errorText: result)
+            } else {
+                self.infoLabel.text = "Success"
+            }
+        }
         
         //Dissmiss image picker
         self.dismiss(animated:true, completion: nil)
@@ -74,20 +80,14 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     // MARK: - Actions with editing information
     @IBAction func firstNameChanged(_ sender: UITextField) {
-        if nameIsValid(uname: sender.text) {
-            infoLabel.text = NSLocalizedString("First Name", comment: "First Name")
-            infoLabel.textColor = UIColor.white
-        } else {
+        if !nameIsValid(uname: sender.text) {
             infoLabel.printError(errorText: "Enter valid name")
         }
     }
     
     
     @IBAction func lastNameChanged(_ sender: UITextField) {
-        if lastNameIsValid(uname: sender.text) {
-            infoLabel.text = NSLocalizedString("Last Name", comment: "Last Name")
-            infoLabel.textColor = UIColor.white
-        } else {
+        if !lastNameIsValid(uname: sender.text) {
             infoLabel.printError(errorText: "Enter valid last name")
         }
     }

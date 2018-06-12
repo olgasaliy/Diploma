@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DMc-tV-ehN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DMc-tV-ehN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -286,13 +286,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information about name and photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OTd-Z7-RXc">
-                            <rect key="frame" x="0.0" y="229" width="375" height="30"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="k1H-ve-MIk">
+                            <rect key="frame" x="0.0" y="229" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about name and image" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcX-9s-1lh">
+                                    <rect key="frame" x="15" y="0.0" width="345" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="pcX-9s-1lh" firstAttribute="leading" secondItem="k1H-ve-MIk" secondAttribute="leading" constant="15" id="7dJ-mx-PLF"/>
+                                <constraint firstItem="pcX-9s-1lh" firstAttribute="top" secondItem="k1H-ve-MIk" secondAttribute="top" id="Bs3-Cu-Sez"/>
+                                <constraint firstAttribute="trailing" secondItem="pcX-9s-1lh" secondAttribute="trailing" constant="15" id="jqV-oM-m7r"/>
+                                <constraint firstAttribute="bottom" secondItem="pcX-9s-1lh" secondAttribute="bottom" constant="10" id="y5g-qq-GWY"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="hO7-dF-0Jf">
                                 <cells>
@@ -390,7 +401,7 @@
                     </tableView>
                     <connections>
                         <outlet property="firstNameTextField" destination="Aoe-Lr-vZC" id="gXP-5G-vQQ"/>
-                        <outlet property="infoLabel" destination="OTd-Z7-RXc" id="xEx-hd-Zb8"/>
+                        <outlet property="infoLabel" destination="pcX-9s-1lh" id="rqX-CQ-hY7"/>
                         <outlet property="lastNaneTexField" destination="Wry-yp-yhp" id="XGH-Ws-xNV"/>
                         <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="vep-uv-lee"/>
                     </connections>
@@ -414,13 +425,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about phone number" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="POu-vl-Tl4">
-                            <rect key="frame" x="0.0" y="117.5" width="375" height="30"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Uun-vL-9nf">
+                            <rect key="frame" x="0.0" y="117.5" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about phone number" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1L-XE-CBl">
+                                    <rect key="frame" x="15" y="0.0" width="345" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="T1L-XE-CBl" secondAttribute="bottom" constant="10" id="2yr-pt-Mfy"/>
+                                <constraint firstAttribute="trailing" secondItem="T1L-XE-CBl" secondAttribute="trailing" constant="15" id="IMt-aA-p0b"/>
+                                <constraint firstItem="T1L-XE-CBl" firstAttribute="leading" secondItem="Uun-vL-9nf" secondAttribute="leading" constant="15" id="OrU-IX-8Nr"/>
+                                <constraint firstItem="T1L-XE-CBl" firstAttribute="top" secondItem="Uun-vL-9nf" secondAttribute="top" id="d4d-hh-h65"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Change your number" id="sdk-aa-gA7">
                                 <cells>
@@ -462,7 +484,7 @@
                     </tableView>
                     <connections>
                         <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="7bv-J9-lIV"/>
-                        <outlet property="infoLabel" destination="POu-vl-Tl4" id="6Jd-jZ-pSi"/>
+                        <outlet property="infoLabel" destination="T1L-XE-CBl" id="E50-l5-5fq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -477,13 +499,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about username" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tdq-WK-Kic">
-                            <rect key="frame" x="0.0" y="131.5" width="375" height="30"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="AIt-er-PhU">
+                            <rect key="frame" x="0.0" y="131.5" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about username" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CF-Jx-bKu">
+                                    <rect key="frame" x="15" y="0.0" width="345" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="9CF-Jx-bKu" firstAttribute="leading" secondItem="AIt-er-PhU" secondAttribute="leading" constant="15" id="Jxn-RD-sb6"/>
+                                <constraint firstAttribute="bottom" secondItem="9CF-Jx-bKu" secondAttribute="bottom" constant="10" id="NfI-kp-YiJ"/>
+                                <constraint firstItem="9CF-Jx-bKu" firstAttribute="top" secondItem="AIt-er-PhU" secondAttribute="top" id="Nwf-Qn-NEX"/>
+                                <constraint firstAttribute="trailing" secondItem="9CF-Jx-bKu" secondAttribute="trailing" constant="15" id="pRG-xP-WiV"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Change your username" id="M7E-As-08f">
                                 <cells>
@@ -523,7 +556,7 @@
                     </tableView>
                     <connections>
                         <outlet property="changeUsernameTextField" destination="hWM-bm-EKQ" id="8N6-Mx-Pmz"/>
-                        <outlet property="infoLabel" destination="Tdq-WK-Kic" id="wBj-rw-SgL"/>
+                        <outlet property="infoLabel" destination="9CF-Jx-bKu" id="drq-lZ-3fA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -538,13 +571,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information about email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="biU-5h-oqz">
-                            <rect key="frame" x="0.0" y="131.5" width="375" height="30"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="7QC-yT-QH7">
+                            <rect key="frame" x="0.0" y="131.5" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about email" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aai-f3-Qgy">
+                                    <rect key="frame" x="15" y="0.0" width="345" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="Aai-f3-Qgy" firstAttribute="top" secondItem="7QC-yT-QH7" secondAttribute="top" id="LQU-vB-iuI"/>
+                                <constraint firstAttribute="trailing" secondItem="Aai-f3-Qgy" secondAttribute="trailing" constant="15" id="baX-C0-FXy"/>
+                                <constraint firstItem="Aai-f3-Qgy" firstAttribute="leading" secondItem="7QC-yT-QH7" secondAttribute="leading" constant="15" id="hfr-ea-7oP"/>
+                                <constraint firstAttribute="bottom" secondItem="Aai-f3-Qgy" secondAttribute="bottom" constant="10" id="x2j-ju-xz5"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Enter your email address" id="emi-rF-uy2">
                                 <cells>
@@ -584,7 +628,7 @@
                     </tableView>
                     <connections>
                         <outlet property="changeEmailTextField" destination="CUU-vZ-7Mh" id="fqX-nD-dRE"/>
-                        <outlet property="infoLabel" destination="biU-5h-oqz" id="Hbe-7V-4aM"/>
+                        <outlet property="infoLabel" destination="Aai-f3-Qgy" id="3oP-VJ-Z93"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lO-Li-Sa6" userLabel="First Responder" sceneMemberID="firstResponder"/>
