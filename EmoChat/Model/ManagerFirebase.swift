@@ -211,9 +211,6 @@ class ManagerFirebase {
                 let email = userSnapshot?["email"] as! String
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
-                //getting array of conversation ids
-
-                //create user without conversations and contacts
                 
                 let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL, uid: uid)
                 
@@ -230,6 +227,34 @@ class ManagerFirebase {
             }
         } else {
             getUser(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+    
+    func update(user: User, completionHandler: @escaping (UserOperationResult) -> Void) {
+        self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            
+            let userSnapshot = snapshot.childSnapshot(forPath: "users/\(user.uid!)").value as? NSDictionary
+            
+            //getting additional info
+            
+            user.username = userSnapshot?["username"] as! String
+            user.firstName = userSnapshot?["firstName"] as! String?
+            user.secondName = userSnapshot?["secondName"] as! String?
+            user.email = userSnapshot?["email"] as! String
+            user.phoneNumber = userSnapshot?["phoneNumber"] as! String?
+            user.photoURL = userSnapshot?["photoURL"] as! String?
+            
+            //get contacts
+            let contactsIDs = userSnapshot?["contacts"] as? NSDictionary
+            if contactsIDs != nil {
+                user.contacts = self.getUsersFromIDs(ids: contactsIDs!, value: value)
+            }
+            
+            //generate array of conversations
+            completionHandler(.successSingleUser(user))
+        }) { (error) in
+            completionHandler(.failure(error.localizedDescription))
         }
     }
     
@@ -612,6 +637,7 @@ class ManagerFirebase {
                 
                 ref?.child("users/\(user.uid ?? "")/contacts/\(Auth.auth().currentUser?.uid ?? "")").setValue(true)
                 ref?.child("users/\(Auth.auth().currentUser?.uid ?? "")/contacts/\(user.uid ?? "")").setValue(true)
+                CurrentUser.shared.contacts.append(user)
                 
                 
                 conversation.name = user.getNameOrUsername()
@@ -935,13 +961,9 @@ class ManagerFirebase {
             conversationName = name
         } else {
             let contactsIDs = conversationDict["usersInConversation"] as? [String : AnyObject] ?? [:]
-            for user in user.contacts {
-                if contactsIDs.keys.contains(user.uid) {
-                    if let name = user.firstName, let secondName = user.secondName{
-                        conversationName = "\(name) \(secondName)"
-                    } else {
-                        conversationName = "\(user.username)"
-                    }
+            for userLoop in user.contacts {
+                if contactsIDs.keys.contains(userLoop.uid) {
+                    conversationName = userLoop.getNameOrUsername()
                 }
             }
         }

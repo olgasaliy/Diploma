@@ -101,7 +101,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     // MARK: - SetObservers
     
     private func observeAddingConversation() {
-
+        
         managerFirebase.conversationsRef?.child("users/\(self.currentUser.uid ?? "")/conversations").queryLimited(toLast: 1).observe(.childAdded, with: { [weak self] (snapshot) in
             
             guard self?.tupleArray.contains(where: { (tuple) -> Bool in
@@ -112,33 +112,43 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
             
             let tuple = conversationTuple(conversationId: snapshot.key, timestamp: Date())
             
-            self?.managerFirebase.getSingleConversation(of: self!.currentUser, tuple: tuple, completionHandler: { (result) in
+            self?.managerFirebase.update(user: self!.currentUser, completionHandler: { result in
                 
                 switch result {
-                case let .successSingleConversation(conversation):
-                    
-                    let tuple = conversationTuple(conversationId: conversation.uuid,
-                                                  timestamp: conversation.lastMessageTimeStamp!)
-                    let insertIndex = self!.tupleArray.insertionIndexOf(elem: tuple, isOrderedBefore: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
-                    
-                    self?.tupleArray.insert(tuple, at: insertIndex)
-                    
-                    self?.currentUser.userConversations?.insert(conversation, at: insertIndex)
-                    self?.observeConversationTimeStamp()
-                    
-                    let insertIndexPath = IndexPath(row: insertIndex, section: 0)
-                    self?.tableView.beginUpdates()
-                    self?.tableView.insertRows(at: [insertIndexPath], with: .top)
-                    self?.tableView.endUpdates()
-                    
+                case let .successSingleUser(user):
+                    self!.currentUser = user
+                    fallthrough
                 default:
-                    return
+                    self?.managerFirebase.getSingleConversation(of: self!.currentUser, tuple: tuple, completionHandler: { (result) in
+                        
+                        switch result {
+                        case let .successSingleConversation(conversation):
+                            
+                            let tuple = conversationTuple(conversationId: conversation.uuid,
+                                                          timestamp: conversation.lastMessageTimeStamp!)
+                            let insertIndex = self!.tupleArray.insertionIndexOf(elem: tuple, isOrderedBefore: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
+                            
+                            self?.tupleArray.insert(tuple, at: insertIndex)
+                            
+                            self?.currentUser.userConversations?.insert(conversation, at: insertIndex)
+                            self?.observeConversationTimeStamp()
+                            
+                            let insertIndexPath = IndexPath(row: insertIndex, section: 0)
+                            self?.tableView.beginUpdates()
+                            self?.tableView.insertRows(at: [insertIndexPath], with: .top)
+                            self?.tableView.endUpdates()
+                            
+                        default:
+                            return
+                        }
+                    })
+                    
                 }
             })
- 
             
-        }, withCancel: { (error) in
-            print(error.localizedDescription)
+            
+            }, withCancel: { (error) in
+                print(error.localizedDescription)
         })
     }
     
@@ -252,6 +262,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                 conversation.imageURL = companionPhotoURL
                 if let image = self.imageStore.image(forKey: companionPhotoURL) {
                     cell.conversationImageView.image = image
+                    cell.activityIndicator.stopAnimating()
                 } else {
                     self.managerFirebase.getUserPicFullResolution(from: companionPhotoURL, result: { [weak self] (result) in
                         switch result {

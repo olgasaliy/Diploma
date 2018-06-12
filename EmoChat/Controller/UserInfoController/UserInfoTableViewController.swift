@@ -63,7 +63,7 @@ class UserInfoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if tableView.cellForRow(at: indexPath)?.reuseIdentifier == sendMessageReuseIdentifier {
-            let conversationName = selectedUser.getNameOrUsername()
+            let conversationName = ""
             let users = [selectedUser!, currentUser!]
             managerFirebase.createConversation(users, withName: conversationName, completion: { [weak self] (result) in
                 switch result {
