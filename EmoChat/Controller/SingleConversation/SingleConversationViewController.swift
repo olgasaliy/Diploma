@@ -368,6 +368,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             print("An Error occured during sending the message! Current conversation can't be nil !")
             return
         }
+        
+        let sentMessage = Message(uid: "temp", senderId: currentUser.uid, time: Date(), content: (currentMessage.type, currentMessage.content))
+        self.insertRow((sentMessage, .right(.sending)))
+        self.scrollToLastMessage()
 
         manager?.createMessage(conversation: notNullCurrentConversation,
                                sender: currentUser,
@@ -380,6 +384,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 
                                     switch (messageOperationResult) {
                                     case .successSingleMessage(let message):
+                                        self.removeAtUid(sentMessage.uid!)
                                         self.insertRow((message, .right(.sending)))
                                     case .failure(let string):
                                         print(string)
@@ -393,8 +398,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                     self.currentMessage.eraseAllData()
 
                                     self.textMessage.isScrollEnabled = false
-
-                                    self.textMessage.becomeFirstResponder()
                                     
                                     self.textViewMaxHeightConstraint.isActive = false
                                 }
@@ -975,8 +978,7 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
         
         if let notNullVideoPath = path {
             currentMessage.setData(content: notNullVideoPath, type: .video)
-//            sendMessage(sendMessageButton)
-//            currentMessage.eraseAllData()
+            sendMessage(sendMessageButton)
         }
     }
 }
@@ -1043,7 +1045,6 @@ extension SingleConversationViewController: cameraControllerDelegate {
     func stopRecording() {
         cameraController.startRecording()
         cameraPreview.isHidden = true
-        cameraController.stopSession()
     }
     
     func startEmoRecording() {

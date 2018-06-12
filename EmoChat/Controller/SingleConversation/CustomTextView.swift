@@ -77,6 +77,8 @@ extension CustomTextView: CustomTextViewProtocol {
 
         if !flag {
             clearButton = clearButton ?? getClearButton()
+        } else {
+            removeDeintButton()
         }
     }
 
