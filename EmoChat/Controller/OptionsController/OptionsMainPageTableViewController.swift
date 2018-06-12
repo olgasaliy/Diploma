@@ -37,6 +37,9 @@ class OptionsMainPageTableViewController:  UITableViewController {
             activityIndicator.isHidden = false
             userImageView.isHidden = true
         }
+        if let selectionIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectionIndexPath, animated: animated)
+        }
     }
     
     func updateInfoOnView() {
